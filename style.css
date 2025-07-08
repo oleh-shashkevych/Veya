@@ -46,7 +46,12 @@ h1 {
     margin: 0;
 }
 
-h2,h3,h4,h5,h6,p {
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
     margin: 0;
     padding: 0;
 }
@@ -282,6 +287,865 @@ template {
 body {
     margin: 0;
     padding: 0;
-    overflow: hidden;
     font-family: 'Craftwork', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--clr-dark);
+    background-color: var(--clr-white);
 }
+
+body.no-scroll {
+    overflow: hidden;
+}
+
+.container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+/* Header Styles */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: var(--clr-white);
+    padding: 15px 0;
+    border-bottom: 1px solid var(--clr-alternative);
+}
+
+
+
+.header__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header__logo-img {
+    width: 120px;
+}
+
+.header__nav-list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.header__nav-item {
+    margin-left: 35px;
+}
+
+.header__nav-link {
+    font-family: 'Craftwork', sans-serif;
+    font-weight: 500;
+    color: var(--clr-dark);
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 5px;
+    transition: color 0.3s ease;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.header__nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--clr-alternative);
+    transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.header__nav-link:hover {
+    color: var(--clr-alternative);
+}
+
+.header__nav-link:hover::after {
+    width: 100%;
+}
+
+.burger {
+    display: none;
+    cursor: pointer;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .header__nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--clr-white);
+        border-top: 1px solid var(--clr-alternative);
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+    }
+
+    .header__nav.active {
+        display: flex;
+    }
+
+    .header__nav-list {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .header__nav-item {
+        margin: 15px 0;
+    }
+
+    .burger {
+        display: block;
+        position: relative;
+        width: 30px;
+        height: 20px;
+    }
+
+    .burger span {
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 3px;
+        background-color: var(--clr-dark);
+        border-radius: 3px;
+        transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    }
+
+    .burger span:nth-child(1) {
+        top: 0;
+    }
+
+    .burger span:nth-child(2) {
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .burger span:nth-child(3) {
+        bottom: 0;
+    }
+
+    .burger.active span:nth-child(1) {
+        transform: rotate(45deg);
+        top: 9px;
+    }
+
+    .burger.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .burger.active span:nth-child(3) {
+        transform: rotate(-45deg);
+        bottom: 9px;
+    }
+}
+
+/* ======= Hero Section Styles Start (Updated) ======= */
+
+.hero {
+    position: relative;
+    height: 800px;
+    /* ЗМІНЕНО: Вирівнювання контенту в лівий нижній кут */
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    overflow: hidden;
+    color: var(--clr-white);
+    /* ДОДАНО: Відступи всередині секції */
+    padding: 60px;
+}
+
+.hero__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    /* Фон завжди позаду */
+}
+
+/* ДОДАНО: Стилі для градієнтного оверлею */
+.hero__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Градієнт від прозорого до темного знизу */
+    background: linear-gradient(to top, rgba(52, 1, 0, 0.75) 0%, rgba(52, 1, 0, 0) 50%);
+    z-index: 2;
+    /* Оверлей над фоном, але під контентом */
+}
+
+.hero__bg-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    /* ЗМІНЕНО: Початковий стан - картинка збільшена */
+    transform: scale(1.15);
+    /* ЗМІНЕНО: Z-index для плавного "чистого" фейду */
+    z-index: 1;
+    /* ЗМІНЕНО: Анімація тепер застосовується при додаванні класу .active */
+    transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+}
+
+.hero__bg-img.active {
+    opacity: 1;
+    /* ЗМІНЕНО: Кінцевий стан - картинка зменшується до нормального розміру */
+    transform: scale(1.0);
+    z-index: 2;
+    /* Активне зображення завжди зверху */
+}
+
+.hero__bg-video {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero__content {
+    position: relative;
+    /* ЗМІНЕНО: Контент тепер над градієнтом */
+    z-index: 3;
+}
+
+/* ЗМІНЕНО: Видалено .hero__title, .hero__subtitle. Додано .hero__text */
+.hero__text {
+    font-family: 'Angst', sans-serif;
+    font-weight: 700;
+    font-size: 4rem;
+    /* Єдиний розмір для всього тексту */
+    line-height: 1.2;
+    margin: 0 0 2rem 0;
+    /* Відступ до кнопки */
+    text-shadow: none;
+    /* Тінь більше не потрібна через градієнт */
+}
+
+.hero__btn {
+    display: inline-block;
+    padding: 15px 45px;
+    border: 2px solid var(--clr-accent);
+    background-color: var(--clr-accent);
+    color: var(--clr-alternative);
+    font-family: 'Craftwork', sans-serif;
+    font-weight: 500;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.hero__btn:hover {
+    background-color: transparent;
+    color: var(--clr-accent);
+}
+
+/* Адаптація для мобільних пристроїв */
+@media (max-width: 768px) {
+    .hero {
+        height: 100vh;
+        padding: 40px 30px;
+        /* Зменшуємо відступи */
+    }
+
+    .hero__bg-img {
+        display: none;
+    }
+
+    .hero__bg-video {
+        display: block;
+    }
+
+    .hero__text {
+        font-size: 2.5rem;
+        /* Зменшуємо текст на мобільних */
+    }
+}
+
+/* ======= Hero Section Styles End (Updated) ======= */
+
+/* ======= Collections Section Styles Start ======= */
+
+.collections {
+    padding: 80px 0;
+    background-color: var(--clr-white);
+}
+
+.collections__title {
+    font-family: 'Angst', sans-serif;
+    font-weight: 400;
+    font-size: 3rem;
+    color: var(--clr-dark);
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.collection-card {
+    display: block;
+    text-decoration: none;
+    color: var(--clr-dark);
+    text-align: center;
+}
+
+.collection-card__image-wrap {
+    overflow: hidden;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.collection-card__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4;
+    /* Maintains a consistent shape */
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.collection-card:hover .collection-card__image {
+    transform: scale(1.1);
+}
+
+.collection-card__title {
+    font-family: 'Craftwork', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+
+/* Swiper Navigation Arrows */
+.collections-slider .swiper-button-next,
+.collections-slider .swiper-button-prev {
+    color: var(--clr-alternative);
+    transition: color 0.3s ease;
+}
+
+.collections-slider .swiper-button-next:hover,
+.collections-slider .swiper-button-prev:hover {
+    color: var(--clr-accent);
+}
+
+/* Adjust arrow position on smaller screens */
+@media (max-width: 768px) {
+
+    .collections-slider .swiper-button-next,
+    .collections-slider .swiper-button-prev {
+        --swiper-navigation-size: 28px;
+    }
+}
+
+
+/* ======= Collections Section Styles End ======= */
+
+/* ======= About Section Styles Start ======= */
+
+.about {
+    padding: 80px 0;
+    background-color: var(--clr-white);
+}
+
+.about__inner {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+
+.about__text-content {
+    flex: 1 1 40%;
+    /* Занимает 40% ширины */
+}
+
+.about__title {
+    font-family: 'Angst', sans-serif;
+    font-weight: 400;
+    font-size: 3rem;
+    color: var(--clr-dark);
+    margin-bottom: 30px;
+}
+
+.about__description {
+    font-family: 'Craftwork', sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--clr-dark);
+}
+
+.about__image-grid {
+    flex: 1 1 60%;
+    /* Занимает 60% ширины */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 180px);
+    /* Высота ряда сетки */
+    gap: 20px;
+}
+
+.about__grid-item {
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.about__grid-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.about__grid-item:hover .about__grid-image {
+    transform: scale(1.1);
+}
+
+/* --- Расположение элементов сетки --- */
+.about__grid-item--1 {
+    grid-column: 1 / 3;
+    /* Занимает 2 колонки */
+    grid-row: 1 / 3;
+    /* Занимает 2 ряда */
+}
+
+.about__grid-item--2 {
+    grid-column: 3 / 4;
+    grid-row: 1 / 2;
+}
+
+.about__grid-item--3 {
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+}
+
+.about__grid-item--4 {
+    grid-column: 1 / 2;
+    grid-row: 3 / 4;
+}
+
+.about__grid-item--5 {
+    grid-column: 2 / 4;
+    /* Занимает 2 колонки */
+    grid-row: 3 / 4;
+}
+
+/* --- Адаптация для мобильных устройств --- */
+@media (max-width: 992px) {
+    .about__inner {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .about__text-content {
+        text-align: center;
+    }
+
+    .about__image-grid {
+        width: 100%;
+        grid-template-rows: repeat(3, 150px);
+    }
+}
+
+@media (max-width: 576px) {
+    .about__image-grid {
+        grid-template-columns: repeat(2, 1fr);
+        /* Переопределяем расположение для 2-колоночной сетки */
+        grid-template-rows: repeat(4, 150px);
+    }
+
+    .about__grid-item--1 {
+        grid-column: 1 / 3;
+        /* Широкое изображение сверху */
+        grid-row: 1 / 2;
+    }
+
+    .about__grid-item--2 {
+        grid-column: 1 / 2;
+        grid-row: 2 / 3;
+    }
+
+    .about__grid-item--3 {
+        grid-column: 2 / 3;
+        grid-row: 2 / 3;
+    }
+
+    .about__grid-item--4 {
+        grid-column: 1 / 2;
+        grid-row: 3 / 4;
+    }
+
+    .about__grid-item--5 {
+        grid-column: 2 / 3;
+        grid-row: 3 / 4;
+    }
+}
+
+
+/* ======= About Section Styles End ======= */
+
+
+/* ======= Popup Styles Start ======= */
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    /* Полупрозрачный фон с цветом --clr-alternative */
+    z-index: 9999;
+    display: none;
+    /* Скрыто по-умолчанию */
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+}
+
+.popup.active {
+    display: flex;
+}
+
+.popup__close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 40px;
+    font-weight: bold;
+    color: var(--clr-white);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.popup__close:hover {
+    color: var(--clr-accent);
+}
+
+.popup__img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+}
+
+/* ======= Popup Styles End ======= */
+
+/* ======= CTA Banner Styles Start ======= */
+.cta-banner {
+    position: relative;
+    padding: 100px 0;
+    background-image: url('images/hero-nadyh.webp');
+    /* Вы можете изменить это изображение */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    /* Эффект параллакса */
+    text-align: center;
+    color: var(--clr-white);
+}
+
+.cta-banner__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(52, 1, 0, 0.6);
+    /* Полупрозрачный оверлей с вашим цветом --clr-alternative */
+    z-index: 1;
+}
+
+.cta-banner__content {
+    position: relative;
+    z-index: 2;
+}
+
+.cta-banner__title {
+    font-family: 'Angst', sans-serif;
+    font-weight: 700;
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+}
+
+.cta-banner__subtitle {
+    font-family: 'Craftwork', sans-serif;
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto 30px;
+    line-height: 1.6;
+}
+
+/* Адаптация для мобильных устройств */
+@media (max-width: 768px) {
+    .cta-banner {
+        padding: 80px 0;
+        background-attachment: scroll;
+        /* Отключаем фиксацию фона на мобильных */
+    }
+
+    .cta-banner__title {
+        font-size: 2.5rem;
+    }
+
+    .cta-banner__subtitle {
+        font-size: 1rem;
+    }
+}
+
+/* ======= CTA Banner Styles End ======= */
+
+/* ======= Features Section Styles Start ======= */
+.features {
+    padding: 80px 0;
+    background-color: var(--clr-white);
+}
+
+.features__list {
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+    /* Расстояние между блоками */
+    margin-top: 50px;
+}
+
+.feature-block {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+
+/* Для каждого второго (четного) блока меняем порядок */
+.feature-block:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+.feature-block__text-content,
+.feature-block__image-wrap {
+    flex: 1;
+    /* Каждый блок занимает половину ширины */
+}
+
+.feature-block__image-wrap {
+    overflow: hidden;
+}
+
+.feature-block__image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    /* Можете изменить соотношение сторон */
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+
+.feature-block__title {
+    font-family: 'Angst', sans-serif;
+    font-weight: 400;
+    font-size: 2.5rem;
+    color: var(--clr-dark);
+    margin-bottom: 20px;
+}
+
+.feature-block__description {
+    font-family: 'Craftwork', sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--clr-dark);
+    margin-bottom: 30px;
+}
+
+/* Адаптация для мобильных устройств */
+@media (max-width: 992px) {
+
+    .feature-block,
+    .feature-block:nth-child(even) {
+        flex-direction: column;
+        /* Все блоки складываются в колонку */
+        gap: 40px;
+        text-align: center;
+    }
+
+    .feature-block__title {
+        font-size: 2rem;
+    }
+}
+
+/* ======= Features Section Styles End ======= */
+
+/* ======= Contact Section Styles Start ======= */
+.contact {
+    padding: 80px 0;
+}
+
+.contact__inner {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    background-color: var(--clr-white);
+    padding: 60px;
+    border: 1px solid var(--clr-alternative);
+}
+
+.contact__text-content {
+    flex: 1 1 50%;
+}
+
+.contact__form-wrap {
+    flex: 1 1 50%;
+}
+
+.contact__title {
+    font-family: 'Angst', sans-serif;
+    font-weight: 400;
+    font-size: 3rem;
+    color: var(--clr-dark);
+    margin-bottom: 30px;
+}
+
+.contact__details {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact__link {
+    font-family: 'Craftwork', sans-serif;
+    font-weight: 500;
+    font-size: 1.2rem;
+    color: var(--clr-dark);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact__link:hover {
+    color: var(--clr-alternative);
+}
+
+.contact__form-group {
+    margin-bottom: 20px;
+}
+
+.contact__form-input {
+    width: 100%;
+    padding: 15px 20px;
+    font-family: 'Craftwork', sans-serif;
+    font-size: 1rem;
+    color: var(--clr-dark);
+    background-color: #fff;
+    border: 1px solid var(--clr-alternative);
+    transition: border-color 0.3s ease;
+}
+
+.contact__form-input::placeholder {
+    color: #a9a9a9;
+    opacity: 1; /* Firefox */
+}
+
+.contact__form-input:focus {
+    outline: none;
+    border-color: var(--clr-accent);
+}
+
+.contact__form .hero__btn {
+    width: 100%;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .contact__inner {
+        flex-direction: column;
+        gap: 40px;
+        padding: 40px;
+        text-align: center;
+    }
+    .contact__details {
+        align-items: center;
+    }
+}
+/* ======= Contact Section Styles End ======= */
+
+/* ======= Footer Styles Start ======= */
+.footer {
+    padding: 30px 0;
+    background-color: var(--clr-white);
+    border-top: 1px solid var(--clr-alternative);
+}
+
+.footer__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.footer__socials {
+    display: flex;
+    gap: 25px;
+}
+
+.footer__social-link {
+    font-family: 'Craftwork', sans-serif;
+    font-weight: 500;
+    color: var(--clr-dark);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer__social-link:hover {
+    color: var(--clr-accent);
+}
+
+.footer__copyright p {
+    font-family: 'Craftwork', sans-serif;
+    font-size: 1rem;
+    color: var(--clr-dark);
+    margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .footer__inner {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .footer__copyright {
+        order: -1; /* Move copyright to the top on mobile */
+    }
+}
+
+.footer__social-icon {
+    display: inline-block;
+    width: 30px; /* Настройте размер иконок по вашему желанию */
+    height: 30px;
+    vertical-align: middle; /* Выравнивание по центру относительно других элементов */
+    transition: opacity 0.3s ease;
+}
+
+.footer__social-link:hover .footer__social-icon {
+    opacity: 0.7; /* Небольшое изменение прозрачности при наведении */
+}
+/* ======= Footer Styles End ======= */

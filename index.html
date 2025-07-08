@@ -5,11 +5,310 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+    <header class="header">
+        <div class="container">
+            <div class="header__inner">
+                <div class="header__logo">
+                    <a href="/" class="header__logo-link">
+                        <img src="images/logo-horizontal.png" alt="Logo" class="header__logo-img">
+                    </a>
+                </div>
+                <nav class="header__nav">
+                    <ul class="header__nav-list">
+                        <li class="header__nav-item"><a href="#" class="header__nav-link">Про нас</a></li>
+                        <li class="header__nav-item"><a href="#" class="header__nav-link">Магазин</a></li>
+                        <li class="header__nav-item"><a href="#" class="header__nav-link">Доставка</a></li>
+                        <li class="header__nav-item"><a href="#" class="header__nav-link">Контакти</a></li>
+                    </ul>
+                </nav>
+                <div class="burger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
 
+    <main>
+        <section class="hero">
+            <div class="hero__background">
+                <img src="images/hero-edna.webp" alt="Background Image 1" class="hero__bg-img active">
+                <img src="images/hero-nadyh.webp" alt="Background Image 2" class="hero__bg-img">
+                <img src="images/hero-ober.webp" alt="Background Image 3" class="hero__bg-img">
+                <img src="images/hero-okryl.webp" alt="Background Image 4" class="hero__bg-img">
+
+                <video src="images/hero-video.mov" class="hero__bg-video" autoplay muted loop playsinline></video>
+
+                <div class="hero__overlay"></div>
+            </div>
+            <div class="hero__content">
+                <div class="container">
+                    <h1 class="hero__text">
+                        Привіт, я Юстина,<br>вітаю і т.і
+                    </h1>
+                    <a href="#contact" class="hero__btn">написати</a>
+                </div>
+            </div>
+        </section>
+        <section class="collections">
+            <div class="container">
+                <h2 class="collections__title">Колекції</h2>
+                <div class="swiper collections-slider">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <a href="#" class="collection-card">
+                                <div class="collection-card__image-wrap">
+                                    <img src="images/collection-1.webp" alt="Collection Motanky"
+                                        class="collection-card__image">
+                                </div>
+                                <h3 class="collection-card__title">Мотанки</h3>
+                            </a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a href="#" class="collection-card">
+                                <div class="collection-card__image-wrap">
+                                    <img src="images/collection-2.webp" alt="Collection Zernianky"
+                                        class="collection-card__image">
+                                </div>
+                                <h3 class="collection-card__title">Зернянки</h3>
+                            </a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a href="#" class="collection-card">
+                                <div class="collection-card__image-wrap">
+                                    <img src="images/collection-3.webp" alt="Collection Motanky XL"
+                                        class="collection-card__image">
+                                </div>
+                                <h3 class="collection-card__title">Мотанки XL</h3>
+                            </a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a href="#" class="collection-card">
+                                <div class="collection-card__image-wrap">
+                                    <img src="images/collection-4.webp" alt="Collection Motanochka"
+                                        class="collection-card__image">
+                                </div>
+                                <h3 class="collection-card__title">Мотаночка</h3>
+                            </a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a href="#" class="collection-card">
+                                <div class="collection-card__image-wrap">
+                                    <img src="images/collection-5.webp" alt="Collection Motanochka"
+                                        class="collection-card__image">
+                                </div>
+                                <h3 class="collection-card__title">Мотаночка</h3>
+                            </a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a href="#" class="collection-card">
+                                <div class="collection-card__image-wrap">
+                                    <img src="images/collection-6.webp" alt="Collection Motanochka"
+                                        class="collection-card__image">
+                                </div>
+                                <h3 class="collection-card__title">Мотаночка</h3>
+                            </a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a href="#" class="collection-card">
+                                <div class="collection-card__image-wrap">
+                                    <img src="images/collection-7.webp" alt="Collection Aksesuary"
+                                        class="collection-card__image">
+                                </div>
+                                <h3 class="collection-card__title">Аксесуари</h3>
+                            </a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a href="#" class="collection-card">
+                                <div class="collection-card__image-wrap">
+                                    <img src="images/collection-8.webp" alt="Other Collections"
+                                        class="collection-card__image">
+                                </div>
+                                <h3 class="collection-card__title">Інші</h3>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+            </div>
+        </section>
+        <section class="about">
+            <div class="container">
+                <div class="about__inner">
+                    <div class="about__text-content">
+                        <h2 class="about__title">ПРО НАС</h2>
+                        <p class="about__description">
+                            Слово «ВЕЯ» в перекладі з староукраїнської означає «гілка». Як гілка живиться з коріння, так
+                            і ми черпаємо натхнення з прадавніх традицій українського народу, проростаючи новими плодами
+                            власних витворів.
+                        </p>
+                    </div>
+                    <div class="about__image-grid">
+                        <div class="about__grid-item about__grid-item--1">
+                            <img src="images/hero-edna.webp" alt="About us image 1" class="about__grid-image">
+                        </div>
+                        <div class="about__grid-item about__grid-item--2">
+                            <img src="images/hero-edna.webp" alt="About us image 2" class="about__grid-image">
+                        </div>
+                        <div class="about__grid-item about__grid-item--3">
+                            <img src="images/hero-edna.webp" alt="About us image 3" class="about__grid-image">
+                        </div>
+                        <div class="about__grid-item about__grid-item--4">
+                            <img src="images/hero-edna.webp" alt="About us image 4" class="about__grid-image">
+                        </div>
+                        <div class="about__grid-item about__grid-item--5">
+                            <img src="images/hero-edna.webp" alt="About us image 5" class="about__grid-image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="cta-banner">
+            <div class="cta-banner__overlay"></div>
+            <div class="container">
+                <div class="cta-banner__content">
+                    <h2 class="cta-banner__title">Відкрийте для себе світ унікальних ляльок-мотанок</h2>
+                    <p class="cta-banner__subtitle">Кожна лялька створена з душею та несе в собі тепло українських
+                        традицій.</p>
+                    <a href="#" class="hero__btn">до магазину</a>
+                </div>
+            </div>
+        </section>
+        <section class="features">
+            <div class="container">
+                <h2 class="collections__title">Наші переваги</h2>
+                <div class="features__list">
+                    <div class="feature-block">
+                        <div class="feature-block__text-content">
+                            <p class="feature-block__description">
+                                Наша перша пісня, залита у Тік ток «Гуцулка Ксеня» одразу набрала більше 100000
+                                переглядів.
+                            </p>
+                            <a href="#" class="hero__btn">Дізнатись більше</a>
+                        </div>
+                        <div class="feature-block__image-wrap">
+                            <img src="images/feature-1.jpg" class="feature-block__image">
+                        </div>
+                    </div>
+
+                    <div class="feature-block">
+                        <div class="feature-block__text-content">
+                            <p class="feature-block__description">
+                                Перші 500000 переглядів і усвідомлення того, що ми прививааємо любов до української
+                                пісні та пробуджуємо спогади, отримуємо сотні коментарів від військових, про те що наші
+                                пісні дають їм силу
+                            </p>
+                            <a href="#" class="hero__btn">до магазину</a>
+                        </div>
+                        <div class="feature-block__image-wrap">
+                            <img src="images/feature-2.jpg" class="feature-block__image">
+                        </div>
+                    </div>
+
+                    <div class="feature-block">
+                        <div class="feature-block__text-content">
+                            <p class="feature-block__description">
+                                Та важливо також пам’ятати про трагічні сторінки історії, тому ми виконали пісню «Свіча»
+                                до річниці Голодомору. Вона зібрала 2 мільйони переглядів та тисячі коментарів.
+                                Здавалось би що це неформатне відео для тік ток, майже 3 хвилини, але воно торкнулось
+                                глибини душі кожного українця.
+                            </p>
+                            <a href="#" class="hero__btn">до магазину</a>
+                        </div>
+                        <div class="feature-block__image-wrap">
+                            <img src="images/feature-3.jpg" class="feature-block__image">
+                        </div>
+                    </div>
+
+                    <div class="feature-block">
+                        <div class="feature-block__text-content">
+                            <p class="feature-block__description">
+                                «Місяць на небі» ще одна чудова пісня, що принесла нам перші 500000 переглядів на ютуб.
+                            </p>
+                            <a href="#" class="hero__btn">до магазину</a>
+                        </div>
+                        <div class="feature-block__image-wrap">
+                            <img src="images/feature-4.jpg" class="feature-block__image">
+                        </div>
+                    </div>
+
+                    <div class="feature-block">
+                        <div class="feature-block__text-content">
+                            <h3 class="feature-block__title">Унікальний дизайн</h3>
+                            <p class="feature-block__description">
+                                А пісня «Ішло дівча лучками», в моєму виконанні, яку в народі охрестили «Грушечкою»
+                                набрала понад 5 мільйонів переглядів у різних соцмережах.
+                            </p>
+                            <a href="#" class="hero__btn">До колекцій</a>
+                        </div>
+                        <div class="feature-block__image-wrap">
+                            <img src="images/feature-5.jpg" class="feature-block__image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="contact">
+            <div class="container">
+                <div class="contact__inner">
+                    <div class="contact__text-content">
+                        <h2 class="contact__title">Залишились запитання?</h2>
+                        <div class="contact__details">
+                            <a href="mailto:hi@handmade-veya.com" class="contact__link">hi@handmade-veya.com</a>
+                            <a href="tel:+380987464582" class="contact__link">+38 (098) 746 45 82</a>
+                        </div>
+                    </div>
+                    <div class="contact__form-wrap">
+                        <form action="#" class="contact__form">
+                            <div class="contact__form-group">
+                                <input type="text" id="name" name="name" class="contact__form-input"
+                                    placeholder="Ваше ім'я" required>
+                            </div>
+                            <div class="contact__form-group">
+                                <input type="tel" id="phone" name="phone" class="contact__form-input"
+                                    placeholder="Ваш телефон" required>
+                            </div>
+                            <button type="submit" class="hero__btn">Написати</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+   <footer class="footer">
+        <div class="container">
+            <div class="footer__inner">
+                <div class="footer__socials">
+                    <a href="https://www.tiktok.com/@handmade_veya" target="_blank" rel="noopener noreferrer" class="footer__social-link" aria-label="TikTok">
+                        <svg class="footer__social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M448 209.9a210.1 210.1 0 01-122.8-39.3V349.4A162.6 162.6 0 11185 188.3V278.2a74.6 74.6 0 1052.2 71.2V209.9a211.2 211.2 0 01122.8 39.3z"/></svg>
+                    </a>
+                    <a href="https://www.instagram.com/handmade_veya_/#" target="_blank" rel="noopener noreferrer" class="footer__social-link" aria-label="Instagram">
+                        <svg class="footer__social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8z"/></svg>
+                    </a>
+                    <a href="https://www.facebook.com/people/%D0%95%D1%82%D0%BD%D0%BE%D0%BC%D0%B0%D0%B9%D1%81%D1%82%D0%B5%D1%80%D0%BD%D1%8F-%D0%92%D0%95%D0%AF-%D0%BC%D0%BE%D1%82%D0%B0%D0%BD%D0%BA%D0%B8-%D1%81%D1%83%D0%B2%D0%B5%D0%BD%D1%96%D1%80%D0%B8/100090622299395/" target="_blank" rel="noopener noreferrer" class="footer__social-link" aria-label="Facebook">
+                        <svg class="footer__social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.8 90.5 226.4 209.3 245V327.7h-63V256h63v-54.6c0-62.2 37-96.5 93.7-96.5 27.1 0 55.5 4.8 55.5 4.8v61h-31.3c-30.8 0-40.4 19.1-40.4 38.7V256h68.8l-11 71.7h-57.8V501C413.5 482.4 504 379.8 504 256z"/></svg>
+                    </a>
+                </div>
+                <div class="footer__copyright">
+                    <p>&copy; Вея 2025</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="popup">
+        <span class="popup__close">&times;</span>
+        <img src="" alt="Popup Image" class="popup__img">
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="main.js"></script>
 </body>
 
