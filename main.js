@@ -13,21 +13,23 @@
 
 const heroImages = document.querySelectorAll('.hero__bg-img');
 let currentImageIndex = 0;
-let zCounter = 3; // Початковий z-index для наступної картинки (активна має z-index: 2)
+let zCounter = 1; // Початковий z-index для наступної картинки (активна має z-index: 2)
 
 function showNextImage() {
     if (heroImages.length === 0) return;
 
-    // Збільшуємо z-index, щоб нова картинка завжди була зверху
-    zCounter++;
-    
-    // Наступний індекс з зацикленням
-    const nextImageIndex = (currentImageIndex + 1) % heroImages.length;
+    // Скидаємо z-index, щоб уникнути нескінченного росту
+    if (zCounter > heroImages.length + 1) {
+        heroImages.forEach(img => img.style.zIndex = 1); // Скидаємо всім
+        zCounter = 2; // Починаємо знову з 2
+    }
 
+    // Наступний індекс із зацикленням
+    const nextImageIndex = (currentImageIndex + 1) % heroImages.length;
     const nextImage = heroImages[nextImageIndex];
-    
+
     // Призначаємо новий z-index і робимо картинку активною
-    nextImage.style.zIndex = zCounter;
+    nextImage.style.zIndex = zCounter++; // Призначаємо і потім збільшуємо
     nextImage.classList.add('active');
 
     // Попередню картинку робимо неактивною
@@ -51,42 +53,52 @@ if (window.innerWidth > 768) {
 const collectionsSlider = new Swiper('.collections-slider', {
     // Optional parameters
     loop: true,
-    spaceBetween: 30,
+    spaceBetween: 15,
+    speed: 1500,
 
     // Autoplay configuration
     autoplay: {
-        delay: 3000, // Задержка между слайдами в миллисекундах (3 секунды)
-        disableOnInteraction: false, // Не отключать автоплей после взаимодействия пользователя
-        pauseOnMouseEnter: true, // Пауза при наведении мыши
+        delay: 6000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
     },
 
-    // Navigation arrows
-    navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
+    // Pagination (точки)
+    pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
     },
+
+    // --- ДОБАВЛЕНО ---
+    // Устанавливаем группировку по умолчанию.
+    slidesPerGroup: 1,
+    // --- КОНЕЦ ДОБАВЛЕНИЯ ---
 
     // Responsive breakpoints
     breakpoints: {
         // when window width is >= 320px
         320: {
             slidesPerView: 1,
-            spaceBetween: 20
+            spaceBetween: 15,
+            slidesPerGroup: 1 // Прокрутка по 1
         },
         // when window width is >= 576px
         576: {
             slidesPerView: 2,
-            spaceBetween: 20
+            spaceBetween: 15,
+            slidesPerGroup: 2 // Прокрутка по 2
         },
         // when window width is >= 992px
         992: {
             slidesPerView: 3,
-            spaceBetween: 30
+            spaceBetween: 15,
+            slidesPerGroup: 3 // Прокрутка по 3
         },
         // when window width is >= 1200px
         1200: {
             slidesPerView: 4,
-            spaceBetween: 30
+            spaceBetween: 15,
+            slidesPerGroup: 4 // Прокрутка по 4
         }
     }
 });
