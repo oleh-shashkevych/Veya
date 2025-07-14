@@ -54,11 +54,11 @@ const collectionsSlider = new Swiper('.collections-slider', {
     // Optional parameters
     loop: true,
     spaceBetween: 15,
-    speed: 1500,
+    speed: 2500,
 
     // Autoplay configuration
     autoplay: {
-        delay: 6000,
+        delay: 4000,
         disableOnInteraction: false,
         pauseOnMouseEnter: true,
     },
@@ -143,4 +143,28 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && popup.classList.contains('active')) {
         closePopup();
     }
+});
+
+// ======== КОД ДЛЯ СЕКЦІЇ "ЧАСТІ ЗАПИТАННЯ" (ACCORDION) ========
+
+const faqItems = document.querySelectorAll('.faq__item');
+
+faqItems.forEach(item => {
+    const question = item.querySelector('.faq__question');
+
+    question.addEventListener('click', () => {
+        // Перевіряємо, чи активний поточний елемент
+        const isActive = item.classList.contains('active');
+
+        // Спочатку закриваємо всі відкриті елементи
+        faqItems.forEach(otherItem => {
+            otherItem.classList.remove('active');
+        });
+
+        // Якщо елемент не був активним, робимо його активним
+        if (!isActive) {
+            item.classList.add('active');
+        }
+        // Якщо він був активним, то після видалення класу вище він залишиться закритим
+    });
 });
