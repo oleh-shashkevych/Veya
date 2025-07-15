@@ -196,3 +196,92 @@ faqItems.forEach(item => {
         // Якщо він був активним, то після видалення класу вище він залишиться закритим
     });
 });
+
+// ======== КОД ДЛЯ ВЫРАВНИВАНИЯ ВЫСОТЫ БЛОКОВ "ПРО НАС" (ИЗМЕРЕНИЕ КОНТЕНТА) ========
+
+function alignAboutSectionHeights() {
+    // Находим обертку с контентом и блок с картинками
+    const textWrapper = document.querySelector('.about__text-wrapper'); 
+    const imageGrid = document.querySelector('.about__image-grid');
+
+    // Проверяем, что оба элемента существуют
+    if (!textWrapper || !imageGrid) {
+        return;
+    }
+
+    // Скрипт работает только на десктопах (шире 992px)
+    if (window.innerWidth > 992) {
+        // Сбрасываем высоту грида с картинками на авто, чтобы избежать влияния старых расчетов
+        imageGrid.style.height = 'auto';
+
+        // Получаем точную высоту обертки с контентом
+        const contentHeight = textWrapper.offsetHeight;
+
+        // Применяем эту высоту к блоку с изображениями
+        imageGrid.style.height = `${contentHeight}px`;
+    } else {
+        // На мобильных устройствах сбрасываем стили высоты
+        imageGrid.style.height = 'auto';
+    }
+}
+
+// Вызываем функцию при загрузке страницы и изменении размера окна
+document.addEventListener('DOMContentLoaded', alignAboutSectionHeights);
+window.addEventListener('resize', alignAboutSectionHeights);
+
+// ======== КОД ДЛЯ ВЫРАВНИВАНИЯ ВЫСОТЫ В СЕКЦИИ "ТВОРЧІСТЬ" (С ВЫЧИТАНИЕМ) ========
+
+function alignCreativitySectionHeights() {
+    // Находим левый блок для измерения общей высоты
+    const textWrapper = document.querySelector('.creativity__text-wrapper');
+    // Находим родительские контейнеры для каждого из трех правых блоков
+    const imageContentBlocks = document.querySelectorAll('.creativity__image-content');
+
+    if (!textWrapper || imageContentBlocks.length === 0) {
+        return;
+    }
+
+    if (window.innerWidth > 992) {
+        // 1. Получаем общую высоту, на которую нужно ориентироваться
+        const totalHeight = textWrapper.offsetHeight;
+
+        // 2. Проходимся по каждому из трех блоков справа
+        imageContentBlocks.forEach(block => {
+            const imageWrap = block.querySelector('.creativity__image-wrap');
+            const creativityText = block.querySelector('.creativity__text');
+            const listenButton = block.querySelector('.creativity__listen');
+
+            if (!imageWrap || !creativityText || !listenButton) {
+                return;
+            }
+
+            // 3. Считаем высоту элементов, которые нужно вычесть
+            const textStyles = window.getComputedStyle(creativityText);
+            const buttonStyles = window.getComputedStyle(listenButton);
+
+            const textHeight = creativityText.offsetHeight + parseFloat(textStyles.marginTop) + parseFloat(textStyles.marginBottom);
+            const buttonHeight = listenButton.offsetHeight + parseFloat(buttonStyles.marginTop) + parseFloat(buttonStyles.marginBottom);
+            
+            const heightToSubtract = textHeight + buttonHeight;
+
+            // 4. Вычисляем и применяем итоговую высоту для блока с картинкой
+            const finalImageHeight = totalHeight - heightToSubtract;
+            
+            // Убедимся, что высота не отрицательная
+            imageWrap.style.height = `${Math.max(0, finalImageHeight)}px`;
+        });
+
+    } else {
+        // На мобильных сбрасываем все высоты
+        imageContentBlocks.forEach(block => {
+            const imageWrap = block.querySelector('.creativity__image-wrap');
+            if (imageWrap) {
+                imageWrap.style.height = 'auto';
+            }
+        });
+    }
+}
+
+// Вызываем функцию при загрузке и ресайзе
+document.addEventListener('DOMContentLoaded', alignCreativitySectionHeights);
+window.addEventListener('resize', alignCreativitySectionHeights);
