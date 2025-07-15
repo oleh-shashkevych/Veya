@@ -1,15 +1,37 @@
 
-    const burger = document.querySelector('.burger');
-    const nav = document.querySelector('.header__nav');
-    const body = document.querySelector('body');
+const burger = document.querySelector('.burger');
+const nav = document.querySelector('.header__nav');
+const headerWrapper = document.querySelector('.header');
+const body = document.querySelector('body');
 
-    burger.addEventListener('click', () => {
-        burger.classList.toggle('active');
-        nav.classList.toggle('active');
-        body.classList.toggle('no-scroll');
-    });
+burger.addEventListener('click', () => {
+    burger.classList.toggle('active');
+    nav.classList.toggle('active');
+    headerWrapper.classList.toggle('active');
+    body.classList.toggle('no-scroll');
+});
 
-    // ======== ОНОВЛЕНИЙ КОД ДЛЯ ХІРО СЕКЦІЇ ========
+// ======== КОД ДЛЯ ФІКСОВАНОЇ ШАПКИ ========
+
+const header = document.querySelector('.header');
+
+// Функція, яка буде додавати/видаляти клас
+const handleHeaderScroll = () => {
+    // Якщо сторінка прокручена більше ніж на 10px
+    if (window.scrollY > 10) {
+        header.classList.add('fixed');
+    } else {
+        header.classList.remove('fixed');
+    }
+};
+
+// Відслідковуємо подію скролу
+window.addEventListener('scroll', handleHeaderScroll);
+
+// Також перевіряємо стан при завантаженні сторінки (на випадок, якщо вона завантажилась не зверху)
+document.addEventListener('DOMContentLoaded', handleHeaderScroll);
+
+// ======== ОНОВЛЕНИЙ КОД ДЛЯ ХІРО СЕКЦІЇ ========
 
 const heroImages = document.querySelectorAll('.hero__bg-img');
 let currentImageIndex = 0;
@@ -42,21 +64,22 @@ function showNextImage() {
 
 if (window.innerWidth > 768) {
     if (heroImages.length > 1) {
-       // Запускаємо зміну зображень кожні 6 секунд (6000 мс)
-       // Час має бути трохи меншим за тривалість анімації transform (8с)
-       setInterval(showNextImage, 6000);
+        // Запускаємо зміну зображень кожні 6 секунд (6000 мс)
+        // Час має бути трохи меншим за тривалість анімації transform (8с)
+        setInterval(showNextImage, 4000);
     }
 }
 
-// ======== КОД ДЛЯ СЛАЙДЕРА "КОЛЕКЦІЇ" ========
+// ======== КОД ДЛЯ СЛАЙДЕРА "КОЛЕКЦІЇ" (ІДЕАЛЬНИЙ РИТМ) ========
 
 const collectionsSlider = new Swiper('.collections-slider', {
     // Optional parameters
     loop: true,
     spaceBetween: 15,
     speed: 2500,
+    slidesPerGroup: 1,
 
-    // Autoplay configuration
+    // Конфігурація автопрокрутки
     autoplay: {
         delay: 4000,
         disableOnInteraction: false,
@@ -69,39 +92,44 @@ const collectionsSlider = new Swiper('.collections-slider', {
         clickable: true,
     },
 
-    // --- ДОБАВЛЕНО ---
-    // Устанавливаем группировку по умолчанию.
-    slidesPerGroup: 1,
-    // --- КОНЕЦ ДОБАВЛЕНИЯ ---
-
     // Responsive breakpoints
     breakpoints: {
-        // when window width is >= 320px
-        320: {
-            slidesPerView: 1,
-            spaceBetween: 15,
-            slidesPerGroup: 1 // Прокрутка по 1
-        },
-        // when window width is >= 576px
-        576: {
-            slidesPerView: 2,
-            spaceBetween: 15,
-            slidesPerGroup: 2 // Прокрутка по 2
-        },
-        // when window width is >= 992px
-        992: {
-            slidesPerView: 3,
-            spaceBetween: 15,
-            slidesPerGroup: 3 // Прокрутка по 3
-        },
-        // when window width is >= 1200px
-        1200: {
-            slidesPerView: 4,
-            spaceBetween: 15,
-            slidesPerGroup: 4 // Прокрутка по 4
-        }
+        320: { slidesPerView: 1, slidesPerGroup: 1 },
+        576: { slidesPerView: 2, slidesPerGroup: 2 },
+        992: { slidesPerView: 3, slidesPerGroup: 3 },
+        1200: { slidesPerView: 4, slidesPerGroup: 4 }
     }
 });
+
+// Зупиняємо автопрокрутку одразу після ініціалізації
+collectionsSlider.autoplay.stop();
+
+// Знаходимо сам елемент слайдера для спостереження
+const sliderElement = document.querySelector('.collections-slider');
+
+// Створюємо спостерігача (Intersection Observer)
+const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        // Якщо елемент з'явився в зоні видимості
+        if (entry.isIntersecting) {
+            // ОНОВЛЕНО: Додаємо одноразовий слухач на подію завершення анімації
+            collectionsSlider.once('slideChangeTransitionEnd', function () {
+                // Цей код спрацює, коли перша прокрутка закінчиться.
+                // Тепер запускаємо стандартну автопрокрутку.
+                collectionsSlider.autoplay.start();
+            });
+            
+            // Запускаємо першу прокрутку негайно
+            collectionsSlider.slideNext();
+            
+            // Припиняємо спостереження
+            observer.unobserve(sliderElement);
+        }
+    });
+}, { threshold: 0.1 });
+
+// Починаємо спостереження за елементом слайдера
+observer.observe(sliderElement);
 
 // ======== КОД ДЛЯ СЕКЦИИ "ПРО НАС" (POPUP) ========
 
