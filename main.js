@@ -1,4 +1,3 @@
-
 const burger = document.querySelector('.burger');
 const nav = document.querySelector('.header__nav');
 const headerWrapper = document.querySelector('.header');
@@ -72,64 +71,67 @@ if (window.innerWidth > 768) {
 
 // ======== КОД ДЛЯ СЛАЙДЕРА "КОЛЕКЦІЇ" (ІДЕАЛЬНИЙ РИТМ) ========
 
-const collectionsSlider = new Swiper('.collections-slider', {
-    // Optional parameters
-    loop: true,
-    spaceBetween: 15,
-    speed: 2500,
-    slidesPerGroup: 1,
-
-    // Конфігурація автопрокрутки
-    autoplay: {
-        delay: 4000,
-        disableOnInteraction: false,
-        pauseOnMouseEnter: true,
-    },
-
-    // Pagination (точки)
-    pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-    },
-
-    // Responsive breakpoints
-    breakpoints: {
-        320: { slidesPerView: 1, slidesPerGroup: 1 },
-        576: { slidesPerView: 2, slidesPerGroup: 2 },
-        992: { slidesPerView: 3, slidesPerGroup: 3 },
-        1200: { slidesPerView: 4, slidesPerGroup: 4 }
-    }
-});
-
-// Зупиняємо автопрокрутку одразу після ініціалізації
-collectionsSlider.autoplay.stop();
-
-// Знаходимо сам елемент слайдера для спостереження
-const sliderElement = document.querySelector('.collections-slider');
-
-// Створюємо спостерігача (Intersection Observer)
-const observer = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-        // Якщо елемент з'явився в зоні видимості
-        if (entry.isIntersecting) {
-            // ОНОВЛЕНО: Додаємо одноразовий слухач на подію завершення анімації
-            collectionsSlider.once('slideChangeTransitionEnd', function () {
-                // Цей код спрацює, коли перша прокрутка закінчиться.
-                // Тепер запускаємо стандартну автопрокрутку.
-                collectionsSlider.autoplay.start();
-            });
-            
-            // Запускаємо першу прокрутку негайно
-            collectionsSlider.slideNext();
-            
-            // Припиняємо спостереження
-            observer.unobserve(sliderElement);
+if (document.querySelector('.collections-slider')) {
+    const collectionsSlider = new Swiper('.collections-slider', {
+        // Optional parameters
+        loop: true,
+        spaceBetween: 15,
+        speed: 2500,
+        slidesPerGroup: 1,
+    
+        // Конфігурація автопрокрутки
+        autoplay: {
+            delay: 4000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+        },
+    
+        // Pagination (точки)
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    
+        // Responsive breakpoints
+        breakpoints: {
+            320: { slidesPerView: 1, slidesPerGroup: 1 },
+            576: { slidesPerView: 2, slidesPerGroup: 2 },
+            992: { slidesPerView: 3, slidesPerGroup: 3 },
+            1200: { slidesPerView: 4, slidesPerGroup: 4 }
         }
     });
-}, { threshold: 0.1 });
 
-// Починаємо спостереження за елементом слайдера
-observer.observe(sliderElement);
+    // Зупиняємо автопрокрутку одразу після ініціалізації
+    collectionsSlider.autoplay.stop();
+    
+    // Знаходимо сам елемент слайдера для спостереження
+    const sliderElement = document.querySelector('.collections-slider');
+    
+    // Створюємо спостерігача (Intersection Observer)
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            // Якщо елемент з'явився в зоні видимості
+            if (entry.isIntersecting) {
+                // ОНОВЛЕНО: Додаємо одноразовий слухач на подію завершення анімації
+                collectionsSlider.once('slideChangeTransitionEnd', function () {
+                    // Цей код спрацює, коли перша прокрутка закінчиться.
+                    // Тепер запускаємо стандартну автопрокрутку.
+                    collectionsSlider.autoplay.start();
+                });
+                
+                // Запускаємо першу прокрутку негайно
+                collectionsSlider.slideNext();
+                
+                // Припиняємо спостереження
+                observer.unobserve(sliderElement);
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    // Починаємо спостереження за елементом слайдера
+    observer.observe(sliderElement);
+}
+
 
 // ======== КОД ДЛЯ СЕКЦИИ "ПРО НАС" (POPUP) ========
 
@@ -139,39 +141,42 @@ const popup = document.querySelector('.popup');
 const popupImg = document.querySelector('.popup__img');
 const popupClose = document.querySelector('.popup__close');
 
-// Функция для открытия попапа
-function openPopup(e) {
-    popup.classList.add('active'); // Используем класс для показа
-    popupImg.src = e.target.src;   // Устанавливаем картинку
-    body.classList.add('no-scroll'); // Блокируем скролл фона
+if (popup) {
+    // Функция для открытия попапа
+    function openPopup(e) {
+        popup.classList.add('active'); // Используем класс для показа
+        popupImg.src = e.target.src;   // Устанавливаем картинку
+        body.classList.add('no-scroll'); // Блокируем скролл фона
+    }
+    
+    // Функция для закрытия попапа
+    function closePopup() {
+        popup.classList.remove('active'); // Скрываем попап
+        body.classList.remove('no-scroll'); // Возвращаем скролл
+    }
+    
+    // Добавляем обработчики событий
+    gridImages.forEach(image => {
+        image.addEventListener('click', openPopup);
+    });
+    
+    popupClose.addEventListener('click', closePopup);
+    
+    // Закрытие по клику на оверлей (мимо картинки)
+    popup.addEventListener('click', (e) => {
+        if (e.target === popup) {
+            closePopup();
+        }
+    });
+    
+    // Закрытие по нажатию на клавишу Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && popup.classList.contains('active')) {
+            closePopup();
+        }
+    });
 }
 
-// Функция для закрытия попапа
-function closePopup() {
-    popup.classList.remove('active'); // Скрываем попап
-    body.classList.remove('no-scroll'); // Возвращаем скролл
-}
-
-// Добавляем обработчики событий
-gridImages.forEach(image => {
-    image.addEventListener('click', openPopup);
-});
-
-popupClose.addEventListener('click', closePopup);
-
-// Закрытие по клику на оверлей (мимо картинки)
-popup.addEventListener('click', (e) => {
-    if (e.target === popup) {
-        closePopup();
-    }
-});
-
-// Закрытие по нажатию на клавишу Escape
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && popup.classList.contains('active')) {
-        closePopup();
-    }
-});
 
 // ======== КОД ДЛЯ СЕКЦІЇ "ЧАСТІ ЗАПИТАННЯ" (ACCORDION) ========
 
@@ -273,3 +278,62 @@ window.addEventListener('load', runAllAlignments);
 
 // 2. По-прежнему вызываем при изменении размера окна.
 window.addEventListener('resize', runAllAlignments);
+
+
+// ======== NEW: КОД ДЛЯ ФІЛЬТРАЦІЇ ТОВАРІВ НА СТОРІНЦІ МАГАЗИНУ ========
+document.addEventListener('DOMContentLoaded', () => {
+    const filterContainer = document.querySelector('.filter-buttons');
+    const productGrid = document.querySelector('.product-grid');
+
+    // Перевіряємо, чи існують елементи на сторінці
+    if (!filterContainer || !productGrid) {
+        return;
+    }
+
+    const filterButtons = filterContainer.querySelectorAll('.filter-btn');
+    const productCards = productGrid.querySelectorAll('.product-card');
+
+    filterContainer.addEventListener('click', (event) => {
+        const target = event.target;
+
+        // Перевіряємо, чи клік був по кнопці фільтра
+        if (!target.matches('.filter-btn')) {
+            return;
+        }
+
+        const filterValue = target.getAttribute('data-filter');
+
+        // Оновлюємо активний стан кнопок
+        filterButtons.forEach(button => {
+            button.classList.remove('active');
+        });
+        target.classList.add('active');
+
+        // Фільтруємо товари
+        productCards.forEach(card => {
+            const cardCategory = card.getAttribute('data-category');
+
+            if (filterValue === 'all' || filterValue === cardCategory) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+});
+
+// ======== NEW: КОД ДЛЯ СЛАЙДЕРА НА СТРАНИЦЕ ПРОДУКТА ========
+// Проверяем, существует ли на странице элемент слайдера, чтобы избежать ошибок
+if (document.querySelector('.product-gallery-slider')) {
+    const productGallerySlider = new Swiper('.product-gallery-slider', {
+        // Основные параметры
+        loop: true, // Бесконечная прокрутка
+        spaceBetween: 10,
+        
+        // Пагинация (точки)
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
+}

@@ -1540,3 +1540,378 @@ body.no-scroll {
     }
 }
 /* ======= Footer Styles End ======= */
+
+/* ======= NEW: Store Page Styles Start ======= */
+
+.store-hero {
+    position: relative;
+    padding: 100px 0 60px;
+    background-image: url('images/hero-okryl2.0.webp');
+    background-size: cover;
+    background-position: center;
+    color: var(--clr-white);
+    text-align: center;
+}
+
+.store-hero__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.45);
+    z-index: 1;
+}
+
+.store-hero__content {
+    position: relative;
+    z-index: 2;
+}
+
+.store-hero__breadcrumbs {
+    font-family: 'Craftwork', sans-serif;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.store-hero__title {
+    font-family: 'Angst', sans-serif;
+    font-weight: 700;
+    font-size: 3rem;
+    margin: 0;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+}
+
+.store-catalog {
+    padding: 60px 0 80px;
+}
+
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 50px;
+}
+
+.filter-btn {
+    padding: 10px 20px;
+    border: 1px solid var(--clr-dark);
+    background-color: transparent;
+    color: var(--clr-dark);
+    font-family: 'Craftwork', sans-serif;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background-color: var(--clr-alternative);
+    color: var(--clr-white);
+    border-color: var(--clr-alternative);
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+
+.product-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.3s ease;
+}
+
+.product-card__link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.product-card__image-wrap {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+}
+
+.product-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.product-card:hover .product-card__image {
+    transform: scale(1.05);
+}
+
+.product-card__hover-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 40%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.product-card:hover .product-card__hover-overlay {
+    opacity: 1;
+}
+
+.add-to-cart-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--clr-alternative);
+    color: var(--clr-white);
+    border: none;
+    font-family: 'Craftwork', sans-serif;
+    text-transform: uppercase;
+    cursor: pointer;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
+}
+
+.product-card:hover .add-to-cart-btn {
+    transform: translateY(0);
+}
+
+.product-card__info {
+    padding: 15px 5px;
+}
+
+.product-card__title {
+    font-family: 'Craftwork', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.product-card__price {
+    font-family: 'Craftwork', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #555;
+}
+
+
+@media (max-width: 992px) {
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    .store-hero__title {
+        font-size: 2.5rem;
+    }
+    .filter-buttons {
+        gap: 10px;
+    }
+    .filter-btn {
+        font-size: 0.8rem;
+        padding: 8px 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ======= NEW: Store Page Styles End ======= */
+
+/* ======= NEW: Product Page Styles Start ======= */
+
+.product-page {
+    padding: 120px 0 80px; /* Отступ сверху для фикс. хедера */
+}
+
+.product-page__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: flex-start;
+}
+
+/* --- Стили галереи --- */
+.product-gallery {
+    width: 100%;
+    position: relative;
+}
+
+.product-gallery-slider .swiper-slide {
+    aspect-ratio: 1 / 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+}
+
+.product-gallery-slider .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Пагинация (точки) */
+.product-gallery .swiper-pagination {
+    position: static; /* Располагаем под слайдером */
+    margin-top: 15px;
+}
+
+.product-gallery .swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    background-color: #ccc;
+    opacity: 1;
+    transition: background-color 0.3s ease;
+}
+
+.product-gallery .swiper-pagination-bullet-active {
+    background-color: var(--clr-alternative);
+}
+
+
+/* --- Стили информации о товаре --- */
+.product-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-info .breadcrumbs {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.product-info .breadcrumbs a {
+    color: #777;
+    text-decoration: none;
+    transition: color .3s ease;
+}
+
+.product-info .breadcrumbs a:hover {
+    color: var(--clr-dark);
+    text-decoration: none;
+}
+
+.product-info__title {
+    font-family: 'Angst', sans-serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: var(--clr-dark);
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.product-meta-container {
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.product-meta {
+    display: flex;
+    gap: 30px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.product-meta:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.product-description {
+    margin-top: 15px;
+    font-family: 'Craftwork', sans-serif;
+    line-height: 1.6;
+}
+
+.product-description h3 {
+    font-family: 'Angst', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    color: var(--clr-dark);
+}
+.product-description h3:first-child {
+    margin-top: 0;
+}
+
+.product-description p {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.product-actions {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    border-top: 1px solid #e0e0e0;
+    padding-top: 30px;
+}
+
+.product-price {
+    font-family: 'Angst', sans-serif;
+    font-weight: 700;
+    font-size: 2.2rem;
+    color: var(--clr-dark);
+}
+
+.add-to-cart-btn-product {
+    background-color: var(--clr-alternative);
+    color: var(--clr-white);
+    border-color: var(--clr-alternative);
+    padding: 15px 40px;
+    cursor: pointer;
+}
+
+.add-to-cart-btn-product:hover {
+    background-color: #522d2c;
+    border-color: #522d2c;
+}
+
+
+/* Адаптивные стили для страницы товара */
+@media (max-width: 992px) {
+    .product-page__inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .product-page {
+        padding-top: 100px;
+    }
+    .product-info__title {
+        font-size: 2rem;
+    }
+    .product-actions {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+}
+
+/* ======= NEW: Product Page Styles End ======= */
